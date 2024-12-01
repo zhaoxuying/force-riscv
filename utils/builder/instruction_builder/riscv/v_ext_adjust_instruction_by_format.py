@@ -104,6 +104,11 @@ def v_ext_adjust_instruction_by_format(aInstruction):
         success = adjust_rs1_vs2_vs3_vm(aInstruction)
     elif instruction_format == "rs1-vs2-vd-vm":
         success = adjust_rs1_vs2_vd_vm(aInstruction)
+    # Zvbb instructions
+    elif instruction_format == "vd-vs2-uimm[4:0]-i5-vm":
+        success = adjust_vd_vs2_uimm6_vm(aInstruction)
+    elif instruction_format == "vd-vs2-uimm[4:0]-vm":
+        success = adjust_vd_vs2_uimm5_vm(aInstruction)
     else:
         record_instruction_format(instruction_format)
 
@@ -733,6 +738,23 @@ def adjust_vdrd_vs2_rs1_vm(aInstruction):
     operand_adjustor.set_rs1_int()
     operand_adjustor.set_vm()
     return True
+
+def adjust_vd_vs2_uimm6_vm(aInstruction):
+    operand_adjustor = VectorOperandAdjustor(aInstruction)
+    operand_adjustor.set_vd()
+    operand_adjustor.set_vs2()
+    operand_adjustor.set_imm("uimm[4:0]","uimm5",False)
+    operand_adjustor.set_imm("i5","uimm1",False)
+    operand_adjustor.set_vm()
+    return True
+
+def adjust_vd_vs2_uimm5_vm(aInstruction):
+    operand_adjustor = VectorOperandAdjustor(aInstruction)
+    operand_adjustor.set_vd()
+    operand_adjustor.set_vs2()
+    operand_adjustor.set_imm("uimm[4:0]","uimm5",False)    
+    operand_adjustor.set_vm()
+    return True    
 
 
 def _is_load_store(aInstruction):
