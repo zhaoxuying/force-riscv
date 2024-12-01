@@ -241,4 +241,36 @@
     <O name="rs2'" type="GPR" bits="4-2" access="Read" choices="Prime GPRs" class="CompressedRegisterOperandRISCV"/>
     <asm format="C.XOR %s, %s" op1="rd'" op2="rs2'"/>
   </I>
+  <I name="C.MOP.1" isa="RISCV" group="General" extension="RV64C">
+    <O name="const_bits" type="Constant" bits="15-12,11-7,6-2,1-0" value="0110000010000001"/>
+    <asm format="C.MOP.1"/>
+  </I>
+  <I name="C.MOP.3" isa="RISCV" group="General" extension="RV64C">
+    <O name="const_bits" type="Constant" bits="15-12,11-7,6-2,1-0" value="0110000110000001"/>
+    <asm format="C.MOP.3"/>
+  </I>
+  <I name="C.MOP.5" isa="RISCV" group="General" extension="RV64C">
+    <O name="const_bits" type="Constant" bits="15-12,11-7,6-2,1-0" value="0110001010000001"/>
+    <asm format="C.MOP.5"/>
+  </I>
+  <I name="C.MOP.7" isa="RISCV" group="General" extension="RV64C">
+    <O name="const_bits" type="Constant" bits="15-12,11-7,6-2,1-0" value="0110001110000001"/>
+    <asm format="C.MOP.7"/>
+  </I>
+  <I name="C.MOP.9" isa="RISCV" group="General" extension="RV64C">
+    <O name="const_bits" type="Constant" bits="15-12,11-7,6-2,1-0" value="0110010010000001"/>
+    <asm format="C.MOP.9"/>
+  </I>
+  <I name="C.MOP.11" isa="RISCV" group="General" extension="RV64C">
+    <O name="const_bits" type="Constant" bits="15-12,11-7,6-2,1-0" value="0110010110000001"/>
+    <asm format="C.MOP.11"/>
+  </I>
+  <I name="C.MOP.13" isa="RISCV" group="General" extension="RV64C">
+    <O name="const_bits" type="Constant" bits="15-12,11-7,6-2,1-0" value="0110011010000001"/>
+    <asm format="C.MOP.13"/>
+  </I>
+  <I name="C.MOP.15" isa="RISCV" group="General" extension="RV64C">
+    <O name="const_bits" type="Constant" bits="15-12,11-7,6-2,1-0" value="0110011110000001"/>
+    <asm format="C.MOP.15"/>
+  </I>  
 </instruction_file>

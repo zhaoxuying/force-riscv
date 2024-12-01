@@ -937,4 +937,474 @@
     <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
     <asm format="XORI %s, %s, %s" op1="rd" op2="rs1" op3="simm12"/>
   </I>
+   <I name="LEND" isa="RISCV" group="General" extension="RV32I">
+    <O name="const_bits" type="Constant" bits="6-0" value="1101011"/>
+    <O name="simm20" type="Immediate" bits="31-12" class="SignedImmediateOperand"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="LEND %s, %s" op1="rd" op2="simm20"/>
+  </I>
+    <I name="JEND" isa="RISCV" class="BranchInstruction" group="General" extension="RV32I">
+    <O name="const_bits" type="Constant" bits="6-0" value="1101011"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <O name="Branch-simm20" type="Branch" class="PcRelativeBranchOperand" offset="simm20" offset-scale="1">
+      <O name="simm20" type="Immediate" bits="31,19-12,20,30-21" class="SignedImmediateOperand"/>
+    </O>
+    <asm format="JEND %s, %s" op1="rd" op2="simm20"/>
+  </I>
+  <I name="ZEXT.H" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,24-20,14-12,6-0" value="0000100000001000111011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="ZEXT.H %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SEXT.H" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,24-20,14-12,6-0" value="0110000001010010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SEXT.H %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SEXT.B" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,24-20,14-12,6-0" value="0110000001000010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SEXT.B %s, %s" op1="rd" op2="rs1"/>
+  </I>
+
+  <I name="ORC.B" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0010100001111010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="ORC.B %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="ANDN" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01000001110110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="ANDN %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="BCLR" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01001000010110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="BCLR %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="BCLRI" form="RV64I" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-26,14-12,6-0" value="0100100010010011"/>
+    <O name="shamt" type="Immediate" bits="25-20"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="BCLRI %s, %s, %s" op1="rd" op2="rs1" op3="shamt"/>
+  </I>
+  <I name="BEXT" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01001001010110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="BEXT %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="BEXTI" form="RV64I" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-26,14-12,6-0" value="0100101010010011"/>
+    <O name="shamt" type="Immediate" bits="25-20"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="BEXTI %s, %s, %s" op1="rd" op2="rs1" op3="shamt"/>
+  </I>
+  <I name="BINV" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01101000010110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="BINV %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="BINVI" form="RV64I" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-26,14-12,6-0" value="0110100010010011"/>
+    <O name="shamt" type="Immediate" bits="25-20"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="BINVI %s, %s, %s" op1="rd" op2="rs1" op3="shamt"/>
+  </I>
+  <I name="BSET" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00101000010110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="BSET %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="BSETI" form="RV64I" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-26,14-12,6-0" value="0010100010010011"/>
+    <O name="shamt" type="Immediate" bits="25-20"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="BSETI %s, %s, %s" op1="rd" op2="rs1" op3="shamt"/>
+  </I>
+  <I name="CLMUL" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001010010110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CLMUL %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="CLMULH" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001010110110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CLMULH %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="CLMULR" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001010100110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CLMULR %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="CLZ" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0110000000000010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CLZ %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="CLZW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0110000000000010011011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CLZW %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="CPOP" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0110000000100010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CPOP %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="CPOPW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0110000000100010011011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CPOPW %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="CTZ" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0110000000010010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CTZ %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="CTZW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0110000000010010011011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="CTZW %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="MAX" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001011100110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="MAX %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="MAXU" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001011110110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="MAXU %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="MIN" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001011000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="MIN %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="MINU" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001011010110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="MINU %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="ORN" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01000001100110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="ORN %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="REV8" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0110101110001010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="REV8 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="ROL" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01100000010110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="ROL %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="ROLW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01100000010111011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="ROLW %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="ROR" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01100001010110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="ROR %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="RORI" form="RV64I" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-26,14-12,6-0" value="0110001010010011"/>
+    <O name="shamt" type="Immediate" bits="25-20"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="RORI %s, %s, %s" op1="rd" op2="rs1" op3="shamt"/>
+  </I>
+  <I name="RORIW" form="RV64I" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01100001010011011"/>
+    <O name="shamt" type="Immediate" bits="24-20"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="RORIW %s, %s, %s" op1="rd" op2="rs1" op3="shamt"/>
+  </I>
+  <I name="RORW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01100001010111011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="RORW %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="SH1ADD" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00100000100110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SH1ADD %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="SH1ADD.UW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00100000100111011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SH1ADD.UW %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="SH2ADD" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00100001000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SH2ADD %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="SH2ADD.UW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00100001000111011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SH2ADD.UW %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="SH3ADD" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00100001100110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SH3ADD %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="SH3ADD.UW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00100001100111011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SH3ADD.UW %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="SLLI.UW" form="RV64I" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-26,14-12,6-0" value="0000100010011011"/>
+    <O name="shamt" type="Immediate" bits="25-20"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SLLI.UW %s, %s, %s" op1="rd" op2="rs1" op3="shamt"/>
+  </I>
+  <I name="XNOR" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01000001000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="XNOR %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="AES64DS" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00111010000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="AES64DS %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="AES64DSM" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00111110000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="AES64DSM %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="AES64ES" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00110010000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="AES64ES %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="AES64ESM" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00110110000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="AES64ESM %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="AES64IM" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0011000000000010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="AES64IM %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="AES64KS1I" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-24,14-12,6-0" value="001100010010010011"/>
+    <O name="rnum" type="Choices" bits="23-20" choices="RNUM"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="AES64KS1I %s, %s, %s" op1="rd" op2="rs1" op3="rnum"/>
+  </I>
+  <I name="AES64KS2" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="01111110000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="AES64KS2 %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="BREV8" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0110100001111010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="AES64IM %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="PACK" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001001000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="PACK %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="PACKH" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001001110110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="PACKH %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="PACKW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001001000111011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="PACKW %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="SHA256SIG0" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000000100010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SHA256SIG0 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SHA256SIG1" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000000110010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SHA256SIG1 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SHA256SUM0" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000000000010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SHA256SUM0 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SHA256SUM1" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000000010010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SHA256SUM1 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SHA512SIG0" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000001100010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SHA512SIG0 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SHA512SIG1" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000001110010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SHA512SIG1 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SHA512SUM0" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000001000010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SHA512SUM0 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SHA512SUM1" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000001010010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SHA512SUM1 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SM3P0" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000010000010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SM3P0 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SM3P1" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-20,14-12,6-0" value="0001000010010010010011"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SM3P1 %s, %s" op1="rd" op2="rs1"/>
+  </I>
+  <I name="SM4ED" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="29-25,14-12,6-0" value="110000000110011"/>
+    <O name="bs" type="Immediate" bits="31-30"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SM4ED %s, %s, %s %s" op1="rd" op2="rs1" op3="rs2" op4="bs"/>
+  </I>
+  <I name="SM4KS" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="29-25,14-12,6-0" value="110100000110011"/>
+    <O name="bs" type="Immediate" bits="31-30"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="SM4KS %s, %s, %s %s" op1="rd" op2="rs1" op3="rs2" op4="bs"/>
+  </I>
+  <I name="XPERM8" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00101001000110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="XPERM8 %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+  <I name="XPERM4" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00101000100110011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="XPERM4 %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>
+
+
+
+
+
+
+
 </instruction_file>

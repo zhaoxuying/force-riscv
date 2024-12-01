@@ -22,6 +22,13 @@
     <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
     <asm format="ADDIW %s, %s, %s" op1="rd" op2="rs1" op3="simm12"/>
   </I>
+  <I name="ADD.UW" isa="RISCV" group="General" extension="RV64I">
+    <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00001000000111011"/>
+    <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>    
+    <O name="rs1" type="GPR" bits="19-15" access="Read" choices="GPRs"/>
+    <O name="rd" type="GPR" bits="11-7" access="Write" choices="GPRs"/>
+    <asm format="ADD.UW %s, %s, %s" op1="rd" op2="rs1" op3="rs2"/>
+  </I>  
   <I name="ADDW" isa="RISCV" group="General" extension="RV64I">
     <O name="const_bits" type="Constant" bits="31-25,14-12,6-0" value="00000000000111011"/>
     <O name="rs2" type="GPR" bits="24-20" access="Read" choices="GPRs"/>
