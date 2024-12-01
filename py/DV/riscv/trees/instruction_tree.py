@@ -286,8 +286,8 @@ ZFH32_instructions = {
     "FCVT.H.S##RISCV": 10,
     "FCVT.D.H##RISCV": 10,
     "FCVT.H.D##RISCV": 10,
-    "FCVT.Q.H##RISCV": 10,
-    "FCVT.H.Q##RISCV": 10,
+    "FCVT.Q.H##RISCV": 0,
+    "FCVT.H.Q##RISCV": 0,
     "FCLASS.H##RISCV": 10,
     "FEQ.H##RISCV": 10,
     "FLE.H##RISCV": 10,
@@ -475,10 +475,12 @@ LDST_Word_instructions = {
     "SW##RISCV": 10,
     "LW##RISCV": 10,
     "LWU##RISCV": 10,
-    "C.LW##RISCV": 10,
-    "C.SW##RISCV": 10,
-    "C.LWSP##RISCV": 10,
-    "C.SWSP##RISCV": 10,
+    "C.LW##RISCV": 0,
+    "C.SW##RISCV": 0,
+    "C.LWSP##RISCV": 0,
+    "C.SWSP##RISCV": 0,
+    "C.FLW##RISCV": 0,
+    "C.FLWSP##RISCV": 0,
 }
 
 LDST_Word_map = InstructionMap("LDST_Word_instructions", LDST_Word_instructions)
@@ -488,14 +490,14 @@ LDST_Double_instructions = {
     "FSD##RISCV": 10,
     "SD##RISCV": 10,
     "LD##RISCV": 10,
-    "C.FLD##RISCV": 10,
-    "C.FSD##RISCV": 10,
-    "C.LD##RISCV": 10,
-    "C.SD##RISCV": 10,
-    "C.FLDSP##RISCV": 10,
-    "C.FSDSP##RISCV": 10,
-    "C.LDSP##RISCV": 10,
-    "C.SDSP##RISCV": 10,
+    "C.FLD##RISCV": 0,
+    "C.FSD##RISCV": 0,
+    "C.LD##RISCV": 0,
+    "C.SD##RISCV": 0,
+    "C.FLDSP##RISCV": 0,
+    "C.FSDSP##RISCV": 0,
+    "C.LDSP##RISCV": 0,
+    "C.SDSP##RISCV": 0,
 }
 
 LDST_Double_map = InstructionMap("LDST_Double_instructions", LDST_Double_instructions)
@@ -517,41 +519,41 @@ LDST32_IntFloat_instructions = merge(LDST_Float_instructions, LDST_Int32_instruc
 LDST32_IntFloat_map = InstructionMap("LDST_IntFloat_instructions", LDST32_IntFloat_instructions)
 
 LD_C_instructions = {
-    "C.FLD##RISCV": 10,
-    "C.LD##RISCV": 10,
-    "C.LW##RISCV": 10,
-    "C.FLDSP##RISCV": 10,
-    "C.LDSP##RISCV": 10,
-    "C.LWSP##RISCV": 10,
+    "C.FLD##RISCV": 0,
+    "C.LD##RISCV": 0,
+    "C.LW##RISCV": 0,
+    "C.FLDSP##RISCV": 0,
+    "C.LDSP##RISCV": 0,
+    "C.LWSP##RISCV": 0,
+    "C.FLW##RISCV": 0,
+    "C.FLWSP##RISCV": 0,
 }
 
 LD_C_map = InstructionMap("LD_C_instructions", LD_C_instructions)
 
 LD_C32_instructions = {
-    "C.FLD##RISCV": 10,
-    "C.LW##RISCV": 10,
-    "C.FLDSP##RISCV": 10,
-    "C.LWSP##RISCV": 10,
+    "C.LW##RISCV": 0,
+    "C.LWSP##RISCV": 0,
+    "C.FLW##RISCV": 0,
+    "C.FLWSP##RISCV": 0,
 }
 
 LD_C32_map = InstructionMap("LD_C32_instructions", LD_C32_instructions)
 
 ST_C_instructions = {
-    "C.FSD##RISCV": 10,
-    "C.SD##RISCV": 10,
-    "C.SW##RISCV": 10,
-    "C.FSDSP##RISCV": 10,
-    "C.SDSP##RISCV": 10,
-    "C.SWSP##RISCV": 10,
+    "C.FSD##RISCV": 0,
+    "C.SD##RISCV": 0,
+    "C.SW##RISCV": 0,
+    "C.FSDSP##RISCV": 0,
+    "C.SDSP##RISCV": 0,
+    "C.SWSP##RISCV": 0,
 }
 
 ST_C_map = InstructionMap("ST_C_instructions", ST_C_instructions)
 
 ST_C32_instructions = {
-    "C.FSD##RISCV": 10,
-    "C.SW##RISCV": 10,
-    "C.FSDSP##RISCV": 10,
-    "C.SWSP##RISCV": 10,
+    "C.SW##RISCV": 0,
+    "C.SWSP##RISCV": 0,
 }
 
 ST_C32_map = InstructionMap("ST_C32_instructions", ST_C32_instructions)
@@ -628,6 +630,7 @@ ALU_Int64_instructions = {
     "SRLIW##RISCV": 10,
     "SRLW##RISCV": 10,
     "SUBW##RISCV": 10,
+    "ADD.UW##RISCV": 10,
 }
 
 ALU_Int64_map = InstructionMap("ALU_Int64_instructions", ALU_Int64_instructions)
@@ -718,9 +721,85 @@ BranchJump_C_instructions = {
     "C.EBREAK##RISCV": 10,
     "C.J##RISCV": 10,
     "C.JR##RISCV": 10,
+    "C.JAL##RISCV": 10,
+    "C.JALR##RISCV": 10,
 }
 
 BranchJump_C_map = InstructionMap("BranchJump_C_instructions", BranchJump_C_instructions)
+
+bk_extension_instructions = {
+		
+	"ANDN##RISCV" :10,
+	"BCLR##RISCV" :10,
+	"BCLRI#RV64I#RISCV" :10,
+	"BEXT##RISCV" :10,
+	"BEXTI#RV64I#RISCV" :10,
+	"BINV##RISCV" :10,
+	"BINVI#RV64I#RISCV" :10,
+	"BSET##RISCV" :10,
+	"BSETI#RV64I#RISCV" :10,
+	"CLMUL##RISCV" :10,
+	"CLMULH##RISCV" :10,
+	"CLMULR##RISCV" :10,
+	"CLZ##RISCV" :10,
+	"CLZW##RISCV" :10,
+	"CPOP##RISCV" :10,
+	"CPOPW##RISCV" :10,
+	"MAX##RISCV" :10,
+	"MAXU##RISCV" :10,
+	"MIN##RISCV" :10,
+	"MINU##RISCV" :10,
+	"ORC.B##RISCV" :10,
+	"ORN##RISCV" :10,
+	"REV8##RISCV" :10,
+	"ROL##RISCV" :10,
+	"ROLW##RISCV" :10,
+	"ROR##RISCV" :10,
+	"RORI#RV64I#RISCV" :10,
+	"RORIW#RV64I#RISCV" :10,
+	"RORW##RISCV" :10,
+	"SEXT.H##RISCV" :10,
+	"SEXT.B##RISCV" :10,
+	"SH1ADD##RISCV" :10,
+	"SH1ADD.UW##RISCV" :10,
+	"SH2ADD##RISCV" :10,
+	"SH2ADD.UW##RISCV" :10,
+	"SH3ADD##RISCV" :10,
+	"SH3ADD.UW##RISCV" :10,
+	"SLLI.UW#RV64I#RISCV" :10,
+	"XNOR##RISCV" :10,
+	"ZEXT.H##RISCV" :10,
+	"AES64DS##RISCV" :10,
+	"AES64DSM##RISCV" :10,
+	"AES64ES##RISCV" :10,
+	"AES64ESM##RISCV" :10,
+	"AES64IM##RISCV" :10,
+	"AES64KS1I##RISCV" :10,
+	"AES64KS2##RISCV" :10,
+	"BREV8##RISCV" :10,
+	"PACK##RISCV" :10,
+	"PACKH##RISCV" :10,
+	"PACKW##RISCV" :10,
+	"SHA256SIG0##RISCV" :10,
+	"SHA256SIG1##RISCV" :10,
+	"SHA512SIG0##RISCV" :10,
+	"SHA512SIG1##RISCV" :10,
+	"SHA256SUM0##RISCV" :10,
+	"SHA256SUM1##RISCV" :10,    
+	"SHA512SUM0##RISCV" :10,
+	"SHA512SUM1##RISCV" :10,
+	"SM3P0##RISCV" :10,
+	"SM3P1##RISCV" :10,
+	"SM4ED##RISCV" :10,
+	"SM4KS##RISCV" :10,
+	"XPERM8##RISCV" :10,
+	"XPERM4##RISCV" :10,
+    "CTZ##RISCV" :10,
+    "CTZW##RISCV" :10,
+}
+
+bk_extension_map = InstructionMap("bk_extension_instructions", bk_extension_instructions)
+
 
 ALU_Int_C_instructions = {
     "C.ADD##RISCV": 10,
@@ -780,3 +859,24 @@ ALU_Int32_All_instructions = merge(
     ALU_Int32_instructions, RV32M_instructions, ALU_Int32_C_instructions
 )
 ALU_Int32_All_map = InstructionMap("ALU_Int32_All_instructions", ALU_Int32_All_instructions)
+
+
+Int_Iter_instructions ={
+     "DIV##RISCV": 10,
+     "DIVU##RISCV": 10,
+     "DIVUW##RISCV": 10,
+     "DIVW##RISCV": 10,  
+}
+
+Float_Iter_instructions ={
+     "FDIV.S##RISCV": 10,
+     "FDIV.D##RISCV": 10,
+     "FDIV.H##RISCV": 10,
+     "FDIV.H##RISCV": 10,
+     "FSQRT.S##RISCV": 10,
+     "FSQRT.D##RISCV": 10,
+     "FSQRT.H##RISCV": 10,
+}
+
+Int_Iter_map= InstructionMap("Int_Iter_instructions", Int_Iter_instructions)
+Float_Iter_map= InstructionMap("Float_Iter_instructions", Float_Iter_instructions)
