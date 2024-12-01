@@ -42,3 +42,77 @@ class SkipInstructionHandlerRISCV(ReusableSequence):
             scratch_reg_index, priv_level_reg_index
         )
         self.mAssemblyHelper.genReturn()
+
+class SkipInstructionHandlerRISCVTimerInterruptAndStoreAF(ReusableSequence):
+    def generateHandler(self, **kwargs):
+        try:
+            handler_context = kwargs["handler_context"]
+        except KeyError:
+            self.error(
+                "INTERNAL ERROR: one or more arguments to "
+                "SkipInstructionHandlerRISCV generate method missing."
+            )
+
+        self.debug(
+            "[SkipInstructionHandlerRISCV] generate handler address: 0x%x" % self.getPEstate("PC")
+        )
+
+        priv_level_reg_index = handler_context.getScratchRegisterIndices(
+            RegisterCallRole.PRIV_LEVEL_VALUE
+        )
+        scratch_reg_index = handler_context.getScratchRegisterIndices(
+            RegisterCallRole.TEMPORARY, 1
+        )
+        self.genInstruction("ORI##RISCV", {"rd": 0, "rs1": 0, "simm12": 0})
+        self.genInstruction("ORI##RISCV", {"rd": 0, "rs1": 0, "simm12": 0})
+        self.genInstruction("ORI##RISCV", {"rd": 0, "rs1": 0, "simm12": 0})
+        self.genInstruction("ORI##RISCV", {"rd": 0, "rs1": 0, "simm12": 0})
+        self.genInstruction("ORI##RISCV", {"rd": 0, "rs1": 0, "simm12": 0})
+        self.genInstruction("ORI##RISCV", {"rd": 0, "rs1": 0, "simm12": 0})
+        self.genInstruction("ORI##RISCV", {"rd": 0, "rs1": 0, "simm12": 0})
+        if (self.getPEstate("PrivilegeLevel")==1):
+            privMode = "S" 
+        else:
+            privMode = "M"
+        readCause = privMode.lower() + "cause"
+        xie = privMode.lower() + "ie"
+
+        (cause_val, valid) = self.readRegister(readCause)
+        isInterrupt = cause_val & 0x8000_0000_0000_0000
+        if(isInterrupt):
+            self.notice("Has interrupt")
+            xsComdef = xsCommonDef(self.genThread)
+            set_bit = 7
+            xsComdef.ReadAndSetCsr(xie, set_bit, 0)
+            self.writeRegister(xie, 0x0)
+
+        self.mAssemblyHelper.genIncrementExceptionReturnAddressTimer(
+            scratch_reg_index, priv_level_reg_index
+        )
+        self.mAssemblyHelper.genReturn()
+
+class InstAccessFaultSkipFastHandlerRISCV(ReusableSequence):
+    def generateHandler(self, **kwargs):
+        try:
+            handler_context = kwargs["handler_context"]
+        except KeyError:
+            self.error(
+                "INTERNAL ERROR: one or more arguments to "
+                "SkipInstructionHandlerRISCV generate method missing."
+            )
+
+        self.debug(
+            "[SkipInstructionHandlerRISCV] generate handler address: 0x%x" % self.getPEstate("PC")
+        )
+
+        priv_level_reg_index = handler_context.getScratchRegisterIndices(
+            RegisterCallRole.PRIV_LEVEL_VALUE
+        )
+        scratch_reg_index = handler_context.getScratchRegisterIndices(
+            RegisterCallRole.TEMPORARY, 1
+        )
+
+        self.mAssemblyHelper.genIncrementExceptionReturnAddress(
+            scratch_reg_index, priv_level_reg_index
+        )
+        self.mAssemblyHelper.genReturnAccessFaultSetMepc(scratch_reg_index)

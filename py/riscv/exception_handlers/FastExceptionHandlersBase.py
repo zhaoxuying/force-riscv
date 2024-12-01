@@ -63,7 +63,7 @@ class FastExceptionHandlersBaseRISCV(ReusableSequence):
             self.error('INTERNAL ERROR: unknown privilege level: "%s' % self.mPrivLevel)
 
         # call method to generate the code to process the exception
-        self.processException()
+        self.processException(handler_context)
 
         # return from exception
         self.notice("BLAH" + self.mPrivLevel)

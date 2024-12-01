@@ -27,6 +27,7 @@ class ThreadSplitterSequence(Sequence):
         self.numberThreads = numberThreads
 
     def generate(self, **kwargs):
+        self.debug("<<<get base boot pc")
         with ThreadSplitterContextManager(self):
             pc = PcConfig.get_base_boot_pc()
             (skip_boot, skip_boot_valid) = self.getOption("SkipBootCode")
@@ -39,11 +40,13 @@ class ThreadSplitterSequence(Sequence):
                 pc_offset_reg_index,
             ) = self.getRandomGPRs(3, exclude="0")
             assembly_helper = AssemblyHelperRISCV(self)
-            assembly_helper.genReadSystemRegister(
-                thread_id_reg_index, "mhartid"
-            )  # Get the thread ID
+            #assembly_helper.genReadSystemRegister(
+            #    thread_id_reg_index, "mhartid"
+            #)  # Get the thread ID
 
             load_gpr64_seq = LoadGPR64(self.genThread)
+            # klh
+            load_gpr64_seq.load(thread_id_reg_index, 0x0)
             load_gpr64_seq.load(pc_offset_reg_index, PcConfig.get_boot_pc_offset())
             self.genInstruction(
                 "MUL##RISCV",

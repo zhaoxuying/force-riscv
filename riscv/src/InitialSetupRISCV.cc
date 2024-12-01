@@ -120,8 +120,10 @@ namespace Force {
     field_map["FS"] = 0x3;
     field_map["MIE"] = 0x1;
     field_map["SIE"] = 0x0;
+    field_map["WPRI"] = 0x0;
+    field_map["UBE"] = 0x1;
     mpGenerator->InitializeRegisterFields("mstatus", field_map);
-    mpGenerator->RandomInitializeRegister("mstatus", "");
+    //mpGenerator->RandomInitializeRegister("mstatus", "");
 
     //scause and mcause init
     field_map.clear();

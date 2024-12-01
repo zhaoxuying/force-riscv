@@ -49,6 +49,11 @@ class DefaultFastSyncDispatcher(SyncDispatcherBaseRISCV):
         # Use error code as word offset into the table
         self.mAssemblyHelper.genShiftLeftImmediate(err_code_reg_index, 2)
         self.mAssemblyHelper.genAddRegister(scratch_reg_index, err_code_reg_index)
+        # klh handler
+        self.genInstruction("ADDI##RISCV", {"NoSkip": 1})
+        self.genInstruction("ADDI##RISCV", {"NoSkip": 1})
+        self.genInstruction("ADDI##RISCV", {"NoSkip": 1})
+        self.genInstruction("ADDI##RISCV", {"NoSkip": 1})
         self.genInstruction(
             "JALR##RISCV",
             {

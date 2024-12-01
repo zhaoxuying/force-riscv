@@ -42,6 +42,21 @@ class AssemblyHelperRISCV(AssemblyHelper):
             self.genAddImmediate(aScratchRegIndex, 4)
             self.genWriteSystemRegister(("%sepc" % priv_level.name.lower()), aScratchRegIndex)
 
+    def genAccessfaultSpecficReturnAddressAccessfault(self, aScratchRegIndex, aPrivLevelRegIndex):
+        for priv_level in self.genPrivilegeLevelInstructions(
+            aPrivLevels=tuple(PrivilegeLevelRISCV)[1:],
+            aInstrCountPerLevel=3,
+            aScratchRegIndex=aScratchRegIndex,
+            aPrivLevelRegIndex=aPrivLevelRegIndex,
+        ):
+            # load auipc from reserve PA
+            context_pa = 0x10_8000_0000
+            # load target addr from PA to tarpc_gpr
+            self.mSequence.genInstruction("LD##RISCV", {"LSTarget": context_pa, "rd" : aScratchRegIndex ,"NoSkip":1})
+            # set Target PC to xEPC
+            self.genWriteSystemRegister(("%sepc" % priv_level.name.lower()), aScratchRegIndex)
+
+
     # Generate instructions to set the system register containing the
     # exception return address to the provided recovery address. This will
     # generally result in skipping the instruction that triggered the
@@ -110,6 +125,32 @@ class AssemblyHelperRISCV(AssemblyHelper):
     # default link register.
     def genReturn(self):
         # We use the conventional link register x1
+        self.mSequence.genInstruction(
+            "JALR##RISCV", {"rd": 0, "rs1": 1, "simm12": 0, "NoRestriction": 1}
+        )
+    # Generate an instruction to return to the address contained in the
+    # default link register.
+    def genReturnAccessFault(self):
+        # load auipc from reserve PA
+        context_pa = 0x10_8000_0000
+        # load target addr from PA to tarpc_gpr
+        tarpc_gpr = self.mSequence.getRandomRegisters(1, "GPR", "0")
+        tarpc_gpr_name = "x%d" % tarpc_gpr[0]
+        self.mSequence.randomInitializeRegister(tarpc_gpr_name)
+        self.mSequence.genInstruction("LD##RISCV", {"LSTarget": context_pa, "rd" : tarpc_gpr[0] ,"NoSkip":1})
+        # self.mSequence.genInstruction("LD##RISCV", {"LSTarget": context_va, "rd" : tarpc_gpr[0] ,"NoSkip":1})
+        (read_target_val, valid) = self.mSequence.readRegister(tarpc_gpr_name)
+        self.mSequence.notice(" >>>>>>>>>>>>>> Access fault handler Debug : Prive state is %d" % self.mSequence.getPEstate("PrivilegeLevel"))
+        self.mSequence.notice(" >>>>>>>>>>>>>> Access fault handler Debug : load addr is 0x%x jmp to target addr 0x%x" % (context_pa, read_target_val))
+        self.mSequence.genInstruction(
+            "JALR##RISCV", {"rd": 0, "rs1": tarpc_gpr[0], "simm12": 0, "NoRestriction": 1}
+        )
+    def genReturnAccessFaultSetMepc(self, scratch_reg_index):
+        # load auipc from reserve PA
+        context_pa = 0x10_8000_0000
+        # load target addr from PA to tarpc_gpr
+        self.mSequence.genInstruction("LD##RISCV", {"LSTarget": context_pa, "rd" : scratch_reg_index ,"NoSkip":1})
+        self.mSequence.genInstruction("CSRRW#register#RISCV", {"csr": self.mSequence.getRegisterIndex("mepc"), "rd": 0, "rs1": scratch_reg_index})
         self.mSequence.genInstruction(
             "JALR##RISCV", {"rd": 0, "rs1": 1, "simm12": 0, "NoRestriction": 1}
         )

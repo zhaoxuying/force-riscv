@@ -263,7 +263,30 @@ class HandlerSubroutineGeneratorRISCV(ReusableSequence):
         self.mAssemblyHelper.addLabel("PPN MASK")
         # self.mAssemblyHelper.genAndImmediate(self._mAtpRegIndex,
         # 0xfffffffffff)
+        
+        self.debug("<<<1 aPteShift: {}".format(aPteShift))
         self.mAssemblyHelper.genShiftLeftImmediate(self._mAtpRegIndex, aPteShift)
+
+        self.debug("<<<SLLI SRLI")
+        # klh
+        self.genInstruction(
+            "SLLI#RV64I#RISCV",
+            {
+                "rd": self._mAtpRegIndex,
+                "rs1": self._mAtpRegIndex,
+                "shamt": 8,
+                "NoPreamble": 1
+            }
+        )
+        self.genInstruction(
+            "SRLI#RV64I#RISCV",
+            {
+                "rd": self._mAtpRegIndex,
+                "rs1": self._mAtpRegIndex,
+                "shamt": 8,
+                "NoPreamble": 1
+            }
+        )
 
         # set up register to count levels walked
         self.mAssemblyHelper.genMoveImmediate(self._mWalkLevelRegIndex, aNumLevels - 1)
@@ -325,6 +348,26 @@ class HandlerSubroutineGeneratorRISCV(ReusableSequence):
         self.mAssemblyHelper.genShiftLeftImmediate(self._mR3, aPteSizeShift)
 
         # mask add page offset to base
+        self.debug("<<<SLLI SRLI")
+        # klh
+        self.genInstruction(
+            "SLLI#RV64I#RISCV",
+            {
+                "rd": self._mAtpRegIndex,
+                "rs1": self._mAtpRegIndex,
+                "shamt": 8,
+                "NoPreamble": 1
+            }
+        )
+        self.genInstruction(
+            "SRLI#RV64I#RISCV",
+            {
+                "rd": self._mAtpRegIndex,
+                "rs1": self._mAtpRegIndex,
+                "shamt": 8,
+                "NoPreamble": 1
+            }
+        )
         self.mAssemblyHelper.genAddRegister(self._mR3, self._mAtpRegIndex)
         self.mAssemblyHelper.genMoveRegister(self._mPteAddrRegIndex, self._mR3)
 

@@ -17,10 +17,11 @@
 from riscv.exception_handlers.FastExceptionHandlersBase import (
     FastExceptionHandlersBaseRISCV,
 )
+from riscv.exception_handlers.ExceptionHandlerContext import RegisterCallRole
 
 
 class FastEmptyHandlerRISCV(FastExceptionHandlersBaseRISCV):
-    def processException(self):
+    def processException(self, handler_context):
         self.debug(
             "[FastEmptyHandlerRISCV] process exception %s, privilege level: %s"
             % (self.mErrCode, self.mPrivLevel)
@@ -33,7 +34,7 @@ class FastEmptyHandlerRISCV(FastExceptionHandlersBaseRISCV):
 
 
 class FastSkipInstructionHandlerRISCV(FastExceptionHandlersBaseRISCV):
-    def processException(self):
+    def processException(self, handler_context):
         self.debug(
             "[FastSkipInstructionHandlerRISCV] process exception %s, "
             "privilege level: %s" % (self.mErrCode, self.mPrivLevel)
@@ -51,16 +52,20 @@ class FastSkipInstructionHandlerRISCV(FastExceptionHandlersBaseRISCV):
             if self.mPrivLevel == "M"
             else "sepc"
             if self.mPrivLevel == "S"
-            else "unknown_pc_error"
+            else "vsepc"
+            if self.mPrivLevel == "VS"
+            # else "unknown_pc_error"
+            else "mepc"
         )
 
         self.mAssemblyHelper.genReadSystemRegister(scratch_reg_index, epc_name)
         self.mAssemblyHelper.genAddImmediate(scratch_reg_index, 4)
         self.mAssemblyHelper.genWriteSystemRegister(epc_name, scratch_reg_index)
+        self.notice("<<<mepc2")
 
 
 class FastRecoveryAddressHandlerRISCV(FastExceptionHandlersBaseRISCV):
-    def processException(self):
+    def processException(self, handler_context):
         self.debug(
             "[FastRecoveryAddressHandlerRISCV] process exception %s, "
             "privilege level: %s" % (self.mErrCode, self.mPrivLevel)
@@ -78,7 +83,13 @@ class FastRecoveryAddressHandlerRISCV(FastExceptionHandlersBaseRISCV):
             if self.mPrivLevel == "M"
             else "sepc"
             if self.mPrivLevel == "S"
-            else "unknown_pc_error"
+            else "vsepc"
+            if self.mPrivLevel == "VS"
+            # else "unknown_pc_error"
+            else "mepc"
         )
-
+        
+        self.mAssemblyHelper.genReadSystemRegister(recovery_reg_index, epc_name)
+        self.mAssemblyHelper.genAddImmediate(recovery_reg_index, 4)
         self.mAssemblyHelper.genWriteSystemRegister(epc_name, recovery_reg_index)
+

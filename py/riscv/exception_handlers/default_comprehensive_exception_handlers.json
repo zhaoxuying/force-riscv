@@ -21,7 +21,7 @@
     "ExceptionHandler":
     {
       "ExceptionHandlerModule": "riscv.exception_handlers.SkipInstructionHandler",
-      "ExceptionHandlerClass": "SkipInstructionHandlerRISCV"
+      "ExceptionHandlerClass": "InstAccessFaultSkipFastHandlerRISCV"
     }
   },
   {
