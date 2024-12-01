@@ -303,7 +303,8 @@ namespace Force {
   void GenSequenceAgentRISCV::GetBranchToSelfSequence(vector<GenRequest* >& req_seq) const
   {
     // We avoid disabling BNT here to enable speculative reads past the end-of-test instruction
-    const char* j_instr = "JAL##RISCV";
+    //const char* j_instr = "JAL##RISCV";
+    const char* j_instr = "JEND##RISCV";
     auto j_req = new GenInstructionRequest(j_instr);
     j_req->AddDetail("NoRestriction", 1);
     j_req->AddOperandRequest("rd", 0);

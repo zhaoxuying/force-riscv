@@ -71,7 +71,7 @@ class GlobalInitSeqRISCV(GlobalInitSequence):
     def _getHandlerMemoryConstraint(self):
         # Need to ensure the handler memory doesn't intersect the boot region
         # or initial PC of any thread
-        handler_memory_constr = ConstraintSet(0, 0xFFFFFFFFFFFFFFFF)
+        handler_memory_constr = ConstraintSet(0, 0x1FFFFFFFFF)
         for thread_id in range(self.getThreadNumber()):
             handler_memory_constr.subRange(
                 PcConfig.get_boot_pc(thread_id),
