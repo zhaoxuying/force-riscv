@@ -31,12 +31,14 @@
     <physical_register index="0x44" name="uip" size="64" type="SysReg"/>
     <physical_register index="0x102" name="sedeleg" size="64" type="SysReg"/>
     <physical_register index="0x103" name="sideleg" size="64" type="SysReg"/>
+    <physical_register index="0x104" name="sie" size="64" type="SysReg"/>
     <physical_register index="0x105" name="stvec" size="64" type="SysReg"/>
     <physical_register index="0x106" name="scounteren" size="32" type="SysReg"/>
     <physical_register index="0x140" name="sscratch" size="64" type="SysReg"/>
     <physical_register index="0x141" name="sepc" size="64" type="SysReg"/>
     <physical_register index="0x142" name="scause" size="64" type="SysReg"/>
     <physical_register index="0x143" name="stval" size="64" type="SysReg"/>
+    <physical_register index="0x144" name="sip" size="64" type="SysReg"/>
     <physical_register index="0x180" name="satp" size="64" type="SysReg"/>
     <physical_register index="0x200" name="vsstatus" size="64" type="SysReg"/>
     <physical_register index="0x205" name="vstvec" size="64" type="SysReg"/>
@@ -107,6 +109,31 @@
     <physical_register index="0x3bd" name="pmpaddr13" size="64" type="SysReg"/>
     <physical_register index="0x3be" name="pmpaddr14" size="64" type="SysReg"/>
     <physical_register index="0x3bf" name="pmpaddr15" size="64" type="SysReg"/>
+    <physical_register index="0x5c0" name="sbpctl" size="64" type="SysReg"/>
+    <physical_register index="0x5c1" name="spfctl" size="64" type="SysReg"/>
+    <physical_register index="0x5c2" name="slvpredctl" size="64" type="SysReg"/>
+    <physical_register index="0x5c3" name="smblockctl" size="64" type="SysReg"/>
+    <physical_register index="0x5c4" name="srnctl" size="64" type="SysReg"/>
+    <physical_register index="0x5c5" name="cache_op" size="64" type="SysReg"/>
+    <physical_register index="0x5c6" name="cache_op_finish" size="64" type="SysReg"/>
+    <physical_register index="0x5c7" name="cache_level" size="64" type="SysReg"/>
+    <physical_register index="0x5c8" name="cache_way" size="64" type="SysReg"/>
+    <physical_register index="0x5c9" name="cache_idx" size="64" type="SysReg"/>
+    <physical_register index="0x5ca" name="cache_bank_num" size="64" type="SysReg"/>
+    <physical_register index="0x5cb" name="cache_tag_ecc" size="64" type="SysReg"/>
+    <physical_register index="0x5cc" name="cache_tag_bits" size="64" type="SysReg"/>
+    <physical_register index="0x5cd" name="cache_tag_low" size="64" type="SysReg"/>
+    <physical_register index="0x5ce" name="cache_tag_high" size="64" type="SysReg"/>
+    <physical_register index="0x5cf" name="cache_ecc_width" size="64" type="SysReg"/>
+    <physical_register index="0x5d0" name="cache_data_ecc" size="64" type="SysReg"/>
+    <physical_register index="0x5d1" name="cache_data_0" size="64" type="SysReg"/>
+    <physical_register index="0x5d2" name="cache_data_1" size="64" type="SysReg"/>
+    <physical_register index="0x5d3" name="cache_data_2" size="64" type="SysReg"/>
+    <physical_register index="0x5d4" name="cache_data_3" size="64" type="SysReg"/>
+    <physical_register index="0x5d5" name="cache_data_4" size="64" type="SysReg"/>
+    <physical_register index="0x5d6" name="cache_data_5" size="64" type="SysReg"/>
+    <physical_register index="0x5d7" name="cache_data_6" size="64" type="SysReg"/>
+    <physical_register index="0x5d8" name="cache_data_7" size="64" type="SysReg"/>
     <physical_register index="0x600" name="hstatus" size="64" type="SysReg"/>
     <physical_register index="0x602" name="hedeleg" size="64" type="SysReg"/>
     <physical_register index="0x603" name="hideleg" size="64" type="SysReg"/>
@@ -117,6 +144,13 @@
     <physical_register index="0x644" name="hip" size="64" type="SysReg"/>
     <physical_register index="0x64a" name="htinst" size="64" type="SysReg"/>
     <physical_register index="0x680" name="hgatp" size="64" type="SysReg"/>
+    <physical_register index="0x7a0" name="tselect" size="64" type="SysReg"/>
+    <physical_register index="0x7a1" name="tdata1" size="64" type="SysReg"/>
+    <physical_register index="0x7a2" name="tdata2" size="64" type="SysReg"/>
+    <physical_register index="0x7a3" name="tdata3" size="64" type="SysReg"/>
+    <physical_register index="0x7a4" name="tinf" size="64" type="SysReg"/>
+    <physical_register index="0x7a5" name="tcontrol" size="64" type="SysReg"/>
+    <physical_register index="0x7a8" name="mcontext" size="64" type="SysReg"/>
     <physical_register index="0x7b0" name="dcsr" size="64" type="SysReg"/>
     <physical_register index="0x7b1" name="dpc" size="64" type="SysReg"/>
     <physical_register index="0x7b2" name="dscratch0" size="64" type="SysReg"/>
@@ -287,7 +321,7 @@
         <bit_field shift="0" size="2"/>
       </register_field>
     </register>
-    <register boot="1" index="0x8" init_policy="VstartInitPolicy" name="vstart" size="64" type="SysReg">
+    <register boot="0" index="0x8" init_policy="VstartInitPolicy" name="vstart" size="64" type="SysReg">
       <register_field name="VSTART" physical_register="vstart" size="64">
         <bit_field shift="0" size="64"/>
       </register_field>
@@ -334,7 +368,7 @@
         <bit_field shift="0" size="1"/>
       </register_field>
     </register>
-    <register boot="0" index="0x100" name="sstatus" size="64" type="SysReg">
+    <register boot="1" index="0x100" name="sstatus" size="64" type="SysReg">
       <register_field name="SD" physical_register="mstatus" size="1">
         <bit_field shift="63" size="1"/>
       </register_field>
@@ -384,7 +418,28 @@
     </register>
     <register boot="0" index="0x102" name="sedeleg" size="64" type="SysReg"/>
     <register boot="0" index="0x103" name="sideleg" size="64" type="SysReg"/>
-    <register boot="0" index="0x104" name="sie" size="64" type="SysReg"/>
+    <register boot="1" index="0x104" name="sie" size="64" type="SysReg"/>
+      <register_field name="SSIP" physical_register="sie" size="1">
+        <bit_field shift="1" size="1"/>
+      </register_field>
+      <register_field name="STIP" physical_register="sie" size="1">
+        <bit_field shift="5" size="1"/>
+      </register_field>
+      <register_field name="SEIP" physical_register="sie" size="1">
+        <bit_field shift="9" size="1"/>
+      </register_field>
+      <register_field name="WPRI" physical_register="sie" size="61">
+        <bit_field shift="0" size="1"/>
+        <bit_field shift="2" size="1"/>
+        <bit_field shift="3" size="1"/>
+        <bit_field shift="4" size="1"/>
+        <bit_field shift="6" size="1"/>
+        <bit_field shift="7" size="1"/>
+        <bit_field shift="8" size="1"/>
+        <bit_field shift="10" size="1"/>
+        <bit_field shift="11" size="1"/>
+        <bit_field shift="12" size="52"/>
+      </register_field>
     <register boot="1" index="0x105" name="stvec" size="64" type="SysReg">
       <register_field name="BASE_VAR" physical_register="stvec" size="62">
         <bit_field shift="2" size="62"/>
@@ -514,7 +569,28 @@
         <bit_field shift="0" size="64"/>
       </register_field>
     </register>
-    <register boot="0" index="0x144" name="sip" size="64" type="SysReg"/>
+    <register boot="1" index="0x144" name="sip" size="64" type="SysReg"/>
+      <register_field name="SSIP" physical_register="sip" size="1">
+        <bit_field shift="1" size="1"/>
+      </register_field>
+      <register_field name="STIP" physical_register="sip" size="1">
+        <bit_field shift="5" size="1"/>
+      </register_field>
+      <register_field name="SEIP" physical_register="sip" size="1">
+        <bit_field shift="9" size="1"/>
+      </register_field>
+      <register_field name="WPRI" physical_register="sip" size="61">
+        <bit_field shift="0" size="1"/>
+        <bit_field shift="2" size="1"/>
+        <bit_field shift="3" size="1"/>
+        <bit_field shift="4" size="1"/>
+        <bit_field shift="6" size="1"/>
+        <bit_field shift="7" size="1"/>
+        <bit_field shift="8" size="1"/>
+        <bit_field shift="10" size="1"/>
+        <bit_field shift="11" size="1"/>
+        <bit_field shift="12" size="52"/>
+      </register_field>
     <register boot="0x5001" index="0x180" name="satp" size="64" type="SysReg">
       <register_field name="MODE" physical_register="satp" size="4">
         <bit_field shift="60" size="4"/>
@@ -620,11 +696,18 @@
       <register_field name="SD" physical_register="mstatus" size="1">
         <bit_field shift="63" size="1"/>
       </register_field>
-      <register_field name="WPRI" physical_register="mstatus" size="38">
-        <bit_field shift="36" size="27"/>
+      <register_field name="WPRI" physical_register="mstatus" size="37">
+        <bit_field shift="38" size="25"/>
         <bit_field shift="23" size="9"/>
-        <bit_field shift="6" size="1"/>
+        <bit_field shift="4" size="1"/>
         <bit_field shift="2" size="1"/>
+        <bit_field shift="0" size="1"/>
+      </register_field>
+      <register_field name="MBE" physical_register="mstatus" size="1">
+        <bit_field shift="37" size="1"/>
+      </register_field>
+      <register_field name="SBE" physical_register="mstatus" size="1">
+        <bit_field shift="36" size="1"/>
       </register_field>
       <register_field name="SXL" physical_register="mstatus" size="2">
         <bit_field shift="34" size="2"/>
@@ -667,6 +750,9 @@
       </register_field>
       <register_field name="MPIE" physical_register="mstatus" size="1">
         <bit_field shift="7" size="1"/>
+      </register_field>
+      <register_field name="UBE" physical_register="mstatus" size="1">
+        <bit_field shift="6" size="1"/>
       </register_field>
       <register_field name="SPIE" physical_register="mstatus" size="1">
         <bit_field shift="5" size="1"/>
@@ -909,7 +995,34 @@
         <bit_field shift="0" size="64"/>
       </register_field>
     </register>
-    <register boot="0" index="0x304" name="mie" size="64" type="SysReg"/>
+    <register boot="1" index="0x304" name="mie" size="64" type="SysReg"/>
+      <register_field name="SSIP" physical_register="mie" size="1">
+        <bit_field shift="1" size="1"/>
+      </register_field>
+      <register_field name="MSIP" physical_register="mie" size="1">
+        <bit_field shift="3" size="1"/>
+      </register_field>
+      <register_field name="STIP" physical_register="mie" size="1">
+        <bit_field shift="5" size="1"/>
+      </register_field>
+      <register_field name="MTIP" physical_register="mie" size="1">
+        <bit_field shift="7" size="1"/>
+      </register_field>
+      <register_field name="SEIP" physical_register="mie" size="1">
+        <bit_field shift="9" size="1"/>
+      </register_field>
+      <register_field name="MEIP" physical_register="mie" size="1">
+        <bit_field shift="11" size="1"/>
+      </register_field>
+      <register_field name="WPRI" physical_register="mie" size="58">
+        <bit_field shift="0" size="1"/>
+        <bit_field shift="2" size="1"/>
+        <bit_field shift="4" size="1"/>
+        <bit_field shift="6" size="1"/>
+        <bit_field shift="8" size="1"/>
+        <bit_field shift="10" size="1"/>
+        <bit_field shift="12" size="52"/>
+      </register_field>
     <register boot="1" index="0x305" name="mtvec" size="64" type="SysReg">
       <register_field name="BASE_VAR" physical_register="mtvec" size="62">
         <bit_field shift="2" size="62"/>
@@ -1114,35 +1227,151 @@
         <bit_field shift="0" size="1"/>
       </register_field>
     </register>
-    <register boot="0" index="0x323" name="mhpmevent3" size="64" type="SysReg"/>
-    <register boot="0" index="0x324" name="mhpmevent4" size="64" type="SysReg"/>
-    <register boot="0" index="0x325" name="mhpmevent5" size="64" type="SysReg"/>
-    <register boot="0" index="0x326" name="mhpmevent6" size="64" type="SysReg"/>
-    <register boot="0" index="0x327" name="mhpmevent7" size="64" type="SysReg"/>
-    <register boot="0" index="0x328" name="mhpmevent8" size="64" type="SysReg"/>
-    <register boot="0" index="0x329" name="mhpmevent9" size="64" type="SysReg"/>
-    <register boot="0" index="0x32a" name="mhpmevent10" size="64" type="SysReg"/>
-    <register boot="0" index="0x32b" name="mhpmevent11" size="64" type="SysReg"/>
-    <register boot="0" index="0x32c" name="mhpmevent12" size="64" type="SysReg"/>
-    <register boot="0" index="0x32d" name="mhpmevent13" size="64" type="SysReg"/>
-    <register boot="0" index="0x32e" name="mhpmevent14" size="64" type="SysReg"/>
-    <register boot="0" index="0x32f" name="mhpmevent15" size="64" type="SysReg"/>
-    <register boot="0" index="0x330" name="mhpmevent16" size="64" type="SysReg"/>
-    <register boot="0" index="0x331" name="mhpmevent17" size="64" type="SysReg"/>
-    <register boot="0" index="0x332" name="mhpmevent18" size="64" type="SysReg"/>
-    <register boot="0" index="0x333" name="mhpmevent19" size="64" type="SysReg"/>
-    <register boot="0" index="0x334" name="mhpmevent20" size="64" type="SysReg"/>
-    <register boot="0" index="0x335" name="mhpmevent21" size="64" type="SysReg"/>
-    <register boot="0" index="0x336" name="mhpmevent22" size="64" type="SysReg"/>
-    <register boot="0" index="0x337" name="mhpmevent23" size="64" type="SysReg"/>
-    <register boot="0" index="0x338" name="mhpmevent24" size="64" type="SysReg"/>
-    <register boot="0" index="0x339" name="mhpmevent25" size="64" type="SysReg"/>
-    <register boot="0" index="0x33a" name="mhpmevent26" size="64" type="SysReg"/>
-    <register boot="0" index="0x33b" name="mhpmevent27" size="64" type="SysReg"/>
-    <register boot="0" index="0x33c" name="mhpmevent28" size="64" type="SysReg"/>
-    <register boot="0" index="0x33d" name="mhpmevent29" size="64" type="SysReg"/>
-    <register boot="0" index="0x33e" name="mhpmevent30" size="64" type="SysReg"/>
-    <register boot="0" index="0x33f" name="mhpmevent31" size="64" type="SysReg"/>
+    <register boot="0" index="0x323" name="mhpmevent3" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent3" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>
+    <register boot="0" index="0x324" name="mhpmevent4" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent4" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x325" name="mhpmevent5" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent5" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x326" name="mhpmevent6" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent6" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x327" name="mhpmevent7" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent7" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x328" name="mhpmevent8" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent8" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x329" name="mhpmevent9" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent9" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x32a" name="mhpmevent10" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent10" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x32b" name="mhpmevent11" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent11" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x32c" name="mhpmevent12" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent12" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x32d" name="mhpmevent13" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent13" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x32e" name="mhpmevent14" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent14" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x32f" name="mhpmevent15" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent15" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x330" name="mhpmevent16" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent16" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x331" name="mhpmevent17" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent17" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x332" name="mhpmevent18" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent18" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x333" name="mhpmevent19" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent19" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x334" name="mhpmevent20" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent20" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>      
+    <register boot="0" index="0x335" name="mhpmevent21" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent21" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x336" name="mhpmevent22" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent22" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x337" name="mhpmevent23" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent23" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x338" name="mhpmevent24" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent24" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x339" name="mhpmevent25" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent25" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x33a" name="mhpmevent26" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent26" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x33b" name="mhpmevent27" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent27" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x33c" name="mhpmevent28" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent28" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x33d" name="mhpmevent29" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent29" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x33e" name="mhpmevent30" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent30" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
+    <register boot="0" index="0x33f" name="mhpmevent31" size="64" type="SysReg">
+      <register_field name="EVENT" physical_register="mhpmevent31" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field>
+    </register>    
     <register boot="1" index="0x340" name="mscratch" size="64" type="SysReg">
       <register_field name="MSCRATCH" physical_register="mscratch" size="64">
         <bit_field shift="0" size="64"/>
@@ -1166,7 +1395,34 @@
         <bit_field shift="0" size="64"/>
       </register_field>
     </register>
-    <register boot="0" index="0x344" name="mip" size="64" type="SysReg"/>
+    <register boot="1" index="0x344" name="mip" size="64" type="SysReg"/>
+      <register_field name="SSIP" physical_register="mip" size="1">
+        <bit_field shift="1" size="1"/>
+      </register_field>
+      <register_field name="MSIP" physical_register="mip" size="1">
+        <bit_field shift="3" size="1"/>
+      </register_field>
+      <register_field name="STIP" physical_register="mip" size="1">
+        <bit_field shift="5" size="1"/>
+      </register_field>
+      <register_field name="MTIP" physical_register="mip" size="1">
+        <bit_field shift="7" size="1"/>
+      </register_field>
+      <register_field name="SEIP" physical_register="mip" size="1">
+        <bit_field shift="9" size="1"/>
+      </register_field>
+      <register_field name="MEIP" physical_register="mip" size="1">
+        <bit_field shift="11" size="1"/>
+      </register_field>
+      <register_field name="WPRI" physical_register="mip" size="58">
+        <bit_field shift="0" size="1"/>
+        <bit_field shift="2" size="1"/>
+        <bit_field shift="4" size="1"/>
+        <bit_field shift="6" size="1"/>
+        <bit_field shift="8" size="1"/>
+        <bit_field shift="10" size="1"/>
+        <bit_field shift="12" size="52"/>
+      </register_field>
     <register boot="1" index="0x34a" name="mtinst" size="64" type="SysReg">
       <register_field name="MTINST_VAR" physical_register="mtinst" size="64">
         <bit_field shift="0" size="64"/>
@@ -1177,24 +1433,268 @@
         <bit_field shift="0" size="64"/>
       </register_field>
     </register>
-    <register boot="0" index="0x3a0" name="pmpcfg0" size="64" type="SysReg"/>
-    <register boot="0" index="0x3a2" name="pmpcfg2" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b0" name="pmpaddr0" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b1" name="pmpaddr1" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b2" name="pmpaddr2" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b3" name="pmpaddr3" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b4" name="pmpaddr4" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b5" name="pmpaddr5" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b6" name="pmpaddr6" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b7" name="pmpaddr7" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b8" name="pmpaddr8" size="64" type="SysReg"/>
-    <register boot="0" index="0x3b9" name="pmpaddr9" size="64" type="SysReg"/>
-    <register boot="0" index="0x3ba" name="pmpaddr10" size="64" type="SysReg"/>
-    <register boot="0" index="0x3bb" name="pmpaddr11" size="64" type="SysReg"/>
-    <register boot="0" index="0x3bc" name="pmpaddr12" size="64" type="SysReg"/>
-    <register boot="0" index="0x3bd" name="pmpaddr13" size="64" type="SysReg"/>
-    <register boot="0" index="0x3be" name="pmpaddr14" size="64" type="SysReg"/>
-    <register boot="0" index="0x3bf" name="pmpaddr15" size="64" type="SysReg"/>
+    <register boot="1" index="0x3a0" name="pmpcfg0" size="64" type="SysReg"/>
+      <register_field name="pmp7cfg" physical_register="pmpcfg0" size="8">
+        <bit_field shift="56" size="8"/>
+      </register_field>      
+      <register_field name="pmp6cfg" physical_register="pmpcfg0" size="8">
+        <bit_field shift="48" size="8"/>
+      </register_field>      
+      <register_field name="pmp5cfg" physical_register="pmpcfg0" size="8">
+        <bit_field shift="40" size="8"/>
+      </register_field>
+      <register_field name="pmp4cfg" physical_register="pmpcfg0" size="8">
+        <bit_field shift="32" size="8"/>
+      </register_field>
+      <register_field name="pmp3cfg" physical_register="pmpcfg0" size="8">
+        <bit_field shift="24" size="8"/>
+      </register_field>    
+      <register_field name="pmp2cfg" physical_register="pmpcfg0" size="8">
+        <bit_field shift="16" size="8"/>
+      </register_field>
+      <register_field name="pmp1cfg" physical_register="pmpcfg0" size="8">
+        <bit_field shift="8" size="8"/>
+      </register_field>
+      <register_field name="pmp0cfg" physical_register="pmpcfg0" size="8">
+        <bit_field shift="0" size="8"/>
+      </register_field>
+    <register boot="1" index="0x3a2" name="pmpcfg2" size="64" type="SysReg"/>
+      <register_field name="pmp15cfg" physical_register="pmpcfg2" size="8">
+        <bit_field shift="56" size="8"/>
+      </register_field>      
+      <register_field name="pmp14cfg" physical_register="pmpcfg2" size="8">
+        <bit_field shift="48" size="8"/>
+      </register_field>      
+      <register_field name="pmp13cfg" physical_register="pmpcfg2" size="8">
+        <bit_field shift="40" size="8"/>
+      </register_field>
+      <register_field name="pmp12cfg" physical_register="pmpcfg2" size="8">
+        <bit_field shift="32" size="8"/>
+      </register_field>
+      <register_field name="pmp11cfg" physical_register="pmpcfg2" size="8">
+        <bit_field shift="24" size="8"/>
+      </register_field>    
+      <register_field name="pmp10cfg" physical_register="pmpcfg2" size="8">
+        <bit_field shift="16" size="8"/>
+      </register_field>
+      <register_field name="pmp9cfg" physical_register="pmpcfg2" size="8">
+        <bit_field shift="8" size="8"/>
+      </register_field>
+      <register_field name="pmp8cfg" physical_register="pmpcfg2" size="8">
+        <bit_field shift="0" size="8"/>
+      </register_field>
+    <register boot="1" index="0x3b0" name="pmpaddr0" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr0" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr0" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>
+    <register boot="1" index="0x3b1" name="pmpaddr1" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr1" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr1" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>
+    <register boot="1" index="0x3b2" name="pmpaddr2" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr2" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr2" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>
+    <register boot="1" index="0x3b3" name="pmpaddr3" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr3" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr3" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3b4" name="pmpaddr4" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr4" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr4" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3b5" name="pmpaddr5" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr5" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr5" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3b6" name="pmpaddr6" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr6" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr6" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3b7" name="pmpaddr7" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr7" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr7" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3b8" name="pmpaddr8" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr8" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr8" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3b9" name="pmpaddr9" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr9" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr9" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3ba" name="pmpaddr10" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr10" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr10" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3bb" name="pmpaddr11" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr11" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr11" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3bc" name="pmpaddr12" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr12" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr12" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3bd" name="pmpaddr13" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr13" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr13" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3be" name="pmpaddr14" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr14" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr14" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="1" index="0x3bf" name="pmpaddr15" size="64" type="SysReg"/>
+      <register_field name="RESERVED" physical_register="pmpaddr15" size="10">
+        <bit_field shift="54" size="10"/>
+      </register_field>
+      <register_field name="address[55:2]" physical_register="pmpaddr15" size="54">
+        <bit_field shift="0" size="54"/>
+      </register_field>    
+    <register boot="0" index="0x5c0" name="sbpctl" size="64" type="SysReg"/>
+      <register_field name="SBPCTL_VAL" physical_register="sbpctl" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c1" name="spfctl" size="64" type="SysReg"/>
+      <register_field name="SPFCTL_VAL" physical_register="spfctl" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c2" name="slvpredctl" size="64" type="SysReg"/>
+      <register_field name="SLVPREDCTL_VAL" physical_register="slvpredctl" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c3" name="smblockctl" size="64" type="SysReg"/>
+      <register_field name="SMBLOCKCTL_VAL" physical_register="smblockctl" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c4" name="srnctl" size="64" type="SysReg"/>
+      <register_field name="SRNCTL_VAL" physical_register="srnctl" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c5" name="cache_op" size="64" type="SysReg"/>
+      <register_field name="CACHE_OP_VAL" physical_register="cache_op" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c6" name="cache_op_finish" size="64" type="SysReg"/>
+      <register_field name="CACHE_OP_FINISH_VAL" physical_register="cache_op_finish" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c7" name="cache_level" size="64" type="SysReg"/>
+      <register_field name="CACHE_LEVEL_VAL" physical_register="cache_level" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c8" name="cache_way" size="64" type="SysReg"/>
+      <register_field name="CACHE_WAY_VAL" physical_register="cache_way" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5c9" name="cache_idx" size="64" type="SysReg"/>
+      <register_field name="CACHE_IDX_VAL" physical_register="cache_idx" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5ca" name="cache_bank_num" size="64" type="SysReg"/>
+      <register_field name="CACHE_BANK_NUM_VAL" physical_register="cache_bank_num" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5cb" name="cache_tag_ecc" size="64" type="SysReg"/>
+      <register_field name="CACHE_TAG_ECC_VAL" physical_register="cache_tag_ecc" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5cc" name="cache_tag_bits" size="64" type="SysReg"/>
+      <register_field name="CACHE_TAG_BITS_VAL" physical_register="cache_tag_bits" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5cd" name="cache_tag_low" size="64" type="SysReg"/>
+      <register_field name="CACHE_TAG_LOW_VAL" physical_register="cache_tag_low" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5ce" name="cache_tag_high" size="64" type="SysReg"/>
+      <register_field name="CACHE_TAG_HIGH_VAL" physical_register="cache_tag_high" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5cf" name="cache_ecc_width" size="64" type="SysReg"/>
+      <register_field name="CACHE_ECC_WIDTH_VAL" physical_register="cache_ecc_width" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d0" name="cache_data_ecc" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_ECC_VAL" physical_register="cache_data_ecc" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d1" name="cache_data_0" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_0_VAL" physical_register="cache_data_0" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d2" name="cache_data_1" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_1_VAL" physical_register="cache_data_1" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d3" name="cache_data_2" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_2_VAL" physical_register="cache_data_2" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d4" name="cache_data_3" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_3_VAL" physical_register="cache_data_3" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d5" name="cache_data_4" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_4_VAL" physical_register="cache_data_4" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d6" name="cache_data_5" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_5_VAL" physical_register="cache_data_5" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d7" name="cache_data_6" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_6_VAL" physical_register="cache_data_6" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
+    <register boot="0" index="0x5d8" name="cache_data_7" size="64" type="SysReg"/>
+      <register_field name="CACHE_DATA_7_VAL" physical_register="cache_data_7" size="64">
+        <bit_field shift="0" size="64"/>
+      </register_field> 
     <register boot="1" index="0x600" name="hstatus" size="64" type="SysReg">
       <register_field name="WPRI_VAR" physical_register="hstatus" size="30">
         <bit_field shift="34" size="30"/>
@@ -1421,12 +1921,12 @@
     <register boot="0" class="ReadOnlyRegister" index="0xc1d" name="hpmcounter29" size="64" type="SysReg"/>
     <register boot="0" class="ReadOnlyRegister" index="0xc1e" name="hpmcounter30" size="64" type="SysReg"/>
     <register boot="0" class="ReadOnlyRegister" index="0xc1f" name="hpmcounter31" size="64" type="SysReg"/>
-    <register boot="1" index="0xc20" init_policy="VlInitPolicy" name="vl" size="64" type="SysReg">
+    <register boot="0" index="0xc20" init_policy="VlInitPolicy" name="vl" size="64" type="SysReg">
       <register_field name="VL" physical_register="vl" size="64">
         <bit_field shift="0" size="64"/>
       </register_field>
     </register>
-    <register boot="1" index="0xc21" name="vtype" size="64" type="SysReg">
+    <register boot="0" index="0xc21" name="vtype" size="64" type="SysReg">
       <register_field init_policy="VtypeInitPolicy" name="VILL" physical_register="vtype" size="1">
         <bit_field shift="63" size="1"/>
       </register_field>

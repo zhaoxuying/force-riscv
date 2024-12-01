@@ -231,4 +231,52 @@
     <choice description="512-bit elements" value="0x6" weight="0"/>
     <choice description="1028-bit elements" value="0x7" weight="0"/>
   </choices>
+   <choices name="pmpaddr0.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr1.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr2.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr3.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr4.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr5.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr6.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr7.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices> 
+   <choices name="pmpaddr8.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr9.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr10.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>
+   <choices name="pmpaddr11.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices> 
+   <choices name="pmpaddr12.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>  
+   <choices name="pmpaddr13.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>   
+   <choices name="pmpaddr14.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>  
+   <choices name="pmpaddr15.RESERVED" type="RegisterFieldValue">
+    <choice description="reserved 0 WARL" value="0x0" weight="10"/>
+  </choices>   
 </choices_file>

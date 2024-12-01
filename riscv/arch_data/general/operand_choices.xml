@@ -452,4 +452,18 @@
     <choice name="IOR" value="0xE" weight="10"/>
     <choice name="IORW" value="0xF" weight="10"/>
   </choices>
+  <choices name="RNUM" type="ImmediateOperand">
+    <choice name="0x0" value="0x0" weight="10"/>
+    <choice name="0x1" value="0x1" weight="10"/>
+    <choice name="0x2" value="0x2" weight="10"/>
+    <choice name="0x3" value="0x3" weight="10"/>
+    <choice name="0x4" value="0x4" weight="10"/>
+    <choice name="0x5" value="0x5" weight="10"/>
+    <choice name="0x6" value="0x6" weight="10"/>
+    <choice name="0x7" value="0x7" weight="10"/>
+    <choice name="0x8" value="0x8" weight="10"/>
+    <choice name="0x9" value="0x9" weight="10"/>
+    <choice name="0xA" value="0xA" weight="10"/>
+  </choices>
+
 </choices_file>

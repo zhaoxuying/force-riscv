@@ -113,6 +113,31 @@
     <choice description="MRW; Physical memory protection address register." name="pmpaddr13" value="0x3bd" weight="0"/>
     <choice description="MRW; Physical memory protection address register." name="pmpaddr14" value="0x3be" weight="0"/>
     <choice description="MRW; Physical memory protection address register." name="pmpaddr15" value="0x3bf" weight="0"/>
+    <choice description="SRW; Supervisor branch predict control." name="sbpctl" value="0x5c0" weight="0"/>
+    <choice description="SRW; Supervisor prefetcher control." name="spfctl" value="0x5c1" weight="0"/>
+    <choice description="SRW; Supervisor load violation predict control." name="slvpredctl" value="0x5c2" weight="0"/>
+    <choice description="SRW; Supervisor memblock control." name="smblockctl" value="0x5c3" weight="0"/>
+    <choice description="SRW; Supervisor reasoning control." name="srnctl" value="0x5c4" weight="0"/>
+    <choice description="SRW; Supervisor cache op." name="cache_op" value="0x5c5" weight="0"/>
+    <choice description="SRW; Supervisor cache op finish." name="cache_op_finish" value="0x5c6" weight="0"/>
+    <choice description="SRW; Supervisor cache level." name="cache_level" value="0x5c7" weight="0"/>
+    <choice description="SRW; Supervisor cache way." name="cache_way" value="0x5c8" weight="0"/>
+    <choice description="SRW; Supervisor cache idx." name="cache_idx" value="0x5c9" weight="0"/>
+    <choice description="SRW; Supervisor cache bank num." name="cache_bank_num" value="0x5ca" weight="0"/>
+    <choice description="SRW; Supervisor cache tag ecc." name="cache_tag_ecc" value="0x5cb" weight="0"/>
+    <choice description="SRW; Supervisor cache tag bits." name="cache_tag_bits" value="0x5cc" weight="0"/>
+    <choice description="SRW; Supervisor cache tag low." name="cache_tag_low" value="0x5cd" weight="0"/>
+    <choice description="SRW; Supervisor cache tag high." name="cache_tag_high" value="0x5ce" weight="0"/>
+    <choice description="SRW; Supervisor cache tag width." name="cache_tag_width" value="0x5cf" weight="0"/>
+    <choice description="SRW; Supervisor cache data ecc." name="cache_data_ecc" value="0x5d0" weight="0"/>
+    <choice description="SRW; Supervisor cache data 0." name="cache_data_0" value="0x5d1" weight="0"/>
+    <choice description="SRW; Supervisor cache data 1." name="cache_data_1" value="0x5d2" weight="0"/>
+    <choice description="SRW; Supervisor cache data 2." name="cache_data_2" value="0x5d3" weight="0"/>
+    <choice description="SRW; Supervisor cache data 3." name="cache_data_3" value="0x5d4" weight="0"/>
+    <choice description="SRW; Supervisor cache data 4." name="cache_data_4" value="0x5d5" weight="0"/>
+    <choice description="SRW; Supervisor cache data 5." name="cache_data_5" value="0x5d6" weight="0"/>
+    <choice description="SRW; Supervisor cache data 6." name="cache_data_6" value="0x5d7" weight="0"/>
+    <choice description="SRW; Supervisor cache data 7." name="cache_data_7" value="0x5d8" weight="0"/>
     <choice description="HRW; Hypervisor status register." name="hstatus" value="0x600" weight="0"/>
     <choice description="HRW; Hypervisor exception delegation register." name="hedeleg" value="0x602" weight="0"/>
     <choice description="HRW; Hypervisor interrupt delegation register." name="hideleg" value="0x603" weight="0"/>
@@ -123,6 +148,14 @@
     <choice description="HRW; Hypervisor interrupt pending." name="hip" value="0x644" weight="0"/>
     <choice description="HRW; Hypervisor trap instruction (transformed)." name="htinst" value="0x64a" weight="0"/>
     <choice description="HRW; Hypervisor guest address translation and protection." name="hgatp" value="0x680" weight="0"/>
+    <choice description="DRW; Trigger Select." name="tselect" value="0x7a0" weight="0"/>
+    <choice description="DRW; Trigger Data 1." name="tdata1" value="0x7a1" weight="0"/>
+    <choice description="DRW; Trigger Data 2." name="tdata2" value="0x7a2" weight="0"/>
+    <choice description="DRW; Trigger Data 3." name="tdata3" value="0x7a3" weight="0"/>
+    <choice description="DRW; Trigger Info." name="tinf" value="0x7a4" weight="0"/>
+    <choice description="DRW; Trigger Control." name="tcontrol" value="0x7a5" weight="0"/>   
+    <choice description="DRW; Machine Context." name="mcontext" value="0x7a8" weight="0"/>
+    <choice description="DRW; Supervisor Context." name="mcontext" value="0x7aa" weight="0"/>
     <choice description="DRW; Debug control and status register." name="dcsr" value="0x7b0" weight="0"/>
     <choice description="DRW; Debug PC." name="dpc" value="0x7b1" weight="0"/>
     <choice description="DRW; Debug scratch register 0." name="dscratch0" value="0x7b2" weight="0"/>
